@@ -334,5 +334,69 @@ select * from public.pedidos
 delete from public.pedidos where cliente_id = 1
 
 delete from public.clientes where id = 1
+
+-- Creacion de tablas:
+create table personas
+(
+	id serial primary key,
+	nombres varchar(20),
+	apellidos varchar(20),
+	tipo_documento varchar(10),
+	numero_documento varchar(20),
+	fecha_nacimiento date,
+	email varchar(50)
+)
+-- Agregar columnas nuevas:
+alter table public.personas 
+add edad int
+
+alter table public.personas 
+add telefono varchar(20) not null
+
+-- Agregar datos:
+insert into public.personas (
+	tipo_documento,
+	numero_documento,
+	nombres,
+	apellidos,
+	fecha_nacimiento,
+	email,
+	telefono,
+	edad
+)
+values
+(
+	'CC',
+	'8102332',
+	'Juan Guillermo',
+	'Arcila',
+	'1984-01-16',
+	'juarcila@gmail.com',
+	'3003007000',
+	'40'
+)
+
+-- Mostrar datos almacenados:
+select * from public.personas
+
+-- Alter para añadir columna:
+alter table public.personas alter column edad type varchar(20)
+
+-- Alter para añadir un constraint:
+alter table public.personas add constraint unique_mail unique (email)
+
+-- Eliminar un rato de la tabla, ojo siempre se debe poner where, sino se pierde la BD:
+delete from public.personas where id = '3'
+
+-- Eliminar una columna:
+alter table public.personas drop column	telefono
+
+-- Renombrar una columna:
+alter table public.personas rename column email to correo
+
+-- Update datos:
+update public.personas set apellidos = 'Ochoa' where id = 1
+
+update public.personas set apellidos = 'Arcila' where apellidos like '%ch%'
 ```
   
